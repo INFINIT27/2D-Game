@@ -41,7 +41,6 @@ void Grid::Draw()
 
 void Grid::Update(std::vector<Position> player, int colorIndex)
 {
-    Initialize();
     for(Position index : player)
     {
         grid[index.row][index.col] = colorIndex;

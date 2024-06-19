@@ -8,6 +8,7 @@ Game::Game()
     savedCol = player.GetCol();
     // ---------------------------
     player = Player();
+    prize = Prize();
 }
 
 Game::Game(int row, int col)
@@ -18,11 +19,17 @@ Game::Game(int row, int col)
     savedCol = col;
     // ---------------------------
     player = Player(row, col);
+    prize = Prize();
 }
 
 void Game::Update()
 {
+    grid.Initialize();
     grid.Update(player.GetPlayerTiles(), PLAYER_COLOR);
+    for(int i = 0; i < int(prize.Size()); i++)
+    {
+        grid.Update(prize.GetPrizeLocations()[i], PRIZE_COLOR);
+    }
 }
 
 void Game::Draw()
@@ -86,6 +93,25 @@ void Game::MoveDown()
     }
 }
 
+void Game::Reset()
+{
+    grid.Initialize();
+
+    player = Player(STARTING_ROW, STARTING_COL);
+    prize = Prize();
+
+    // Save Current position
+    save = player.GetPlayerTiles();
+    savedRow = player.GetRow();
+    savedCol = player.GetCol();
+    // ---------------------------
+}
+
+bool Game::GameOver()
+{
+    return prize.Size() + 3 == prize.MaxScore();
+}
+
 void Game::Move(int x, int y)
 {
     player.Move(x, y);
@@ -94,40 +120,54 @@ void Game::Move(int x, int y)
         if(x == 0) player.Move(x, (-1)*y);
         else player.Move((-1)*x, y);
     }
+    if(CheckCollisionWithPrize())
+    {
+        prize.RemovePrize(Position(player.GetRow(), player.GetCol()));
+    }
     Update();
 }
 
 void Game::ManageGame() 
 {
-    if(IsKeyDown(KEY_UP))  Jump();
+    if(GameOver())
+    {
+        if(IsKeyPressed(KEY_SPACE))
+        {
+            Reset();
+        }
+    }
+    else
+    {
+        if(IsKeyDown(KEY_UP))  Jump();
 
-    if(IsKeyDown(KEY_LEFT)) 
-    {
-        Move(0, -1);
-        Delay(DELTA);
-    }
-    
-    if(IsKeyDown(KEY_RIGHT)) 
-    {
-        Move(0, 1);
-        Delay(DELTA);
-    }
+        if(IsKeyDown(KEY_LEFT)) 
+        {
+            Move(0, -1);
+            Delay(DELTA);
+        }
+        
+        if(IsKeyDown(KEY_RIGHT)) 
+        {
+            Move(0, 1);
+            Delay(DELTA);
+        }
 
-    if(IsKeyPressed(KEY_S)) // Save current position
-    {
-        save = player.GetPlayerTiles();
-        savedCol = player.GetCol();
-        savedRow = player.GetRow();
-    }
+        if(IsKeyPressed(KEY_S)) // Save current position
+        {
+            save = player.GetPlayerTiles();
+            savedCol = player.GetCol();
+            savedRow = player.GetRow();
+        }
 
-    if(IsKeyPressed(KEY_R)) // Reload on the saved position
-    {
-        player.SetPlayerTiles(save);
-        player.SetCol(savedCol);
-        player.SetRow(savedRow);
-        Update();
+        if(IsKeyPressed(KEY_R)) // Reload on the saved position
+        {
+            player.SetPlayerTiles(save);
+            player.SetCol(savedCol);
+            player.SetRow(savedRow);
+            Update();
+        }
+        MoveDown();
     }
-    MoveDown();
 }
 
 void Game::PrintPlayer() 
@@ -208,7 +248,18 @@ bool Game::CheckCollisionWithMap()
             return true;
         }
     }
+    return false;
+}
 
+bool Game::CheckCollisionWithPrize()
+{
+    for(Position pos : player.GetPlayerTiles())
+    {
+        if(grid.grid[pos.row][pos.col] == PRIZE_COLOR)
+        {
+            return true;
+        }
+    }
     return false;
 }
 // ---------------------------------------------------

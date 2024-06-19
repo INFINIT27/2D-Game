@@ -12,6 +12,7 @@ const int LENGTH = 10;
 const int PLAYER_COLOR = 2;
 const int BACKGROUND_COLOR = 0;
 const int MAP_COLOR = 1;
+const int PRIZE_COLOR = 5;
 
 const double DELTA = 0.02;
 

@@ -1,7 +1,7 @@
 #include "colors.h"
 #include <raylib.h>
 
-const Color grey = {211, 211, 211, 255};
+const Color grey = {165, 165, 165, 255};
 const Color green = {47, 230, 23, 255};
 const Color red = {232, 18, 18, 255};
 const Color blue = {13, 64, 216, 255};

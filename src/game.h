@@ -1,6 +1,7 @@
 #pragma once
 #include "grid.h"
 #include "player.h"
+#include "prize.h"
 
 class Game
 {
@@ -11,6 +12,7 @@ class Game
     public:
         Grid grid = Grid();
         Player player;
+        Prize prize;
         Game();
         Game(int row, int col);
         void Update();
@@ -26,10 +28,14 @@ class Game
 
         void MoveDown();
 
+        bool GameOver();
+        void Reset();
+        
         void Move(int x, int y);
         void ManageGame();
         void PrintPlayer();
         
+        bool CheckCollisionWithPrize();
         bool CheckUpperWallCollision();
         bool CheckLowerWallCollision();
 

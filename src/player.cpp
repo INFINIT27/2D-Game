@@ -33,6 +33,11 @@ std::vector<Position> Player::GetPlayerTiles() {
     return this->tiles;
 }
 
+void Player::SetPlayerTiles(std::vector<Position> newTiles)
+{
+    this->tiles = newTiles;
+}
+
 void Player::Move(int x, int y) 
 {
     row += x;
@@ -52,15 +57,48 @@ Position Player::GetLowestPosition()
 {
     Position lowest = tiles[0];
 
+    std::vector<Position> lower;
+
     for(Position pos : tiles) 
     {
         if(pos.row > lowest.row)
         {
             lowest = pos;
+            lower.empty();
+            lower.push_back(lowest);
         }
+        if(pos.row == lowest.row)
+        {
+            lower.push_back(pos);
+        }
+
     }
 
     return lowest;
+}
+
+std::vector<Position> Player::GetLowestPositionVector()
+{
+    Position lowest = tiles[0];
+
+    std::vector<Position> lower;
+
+    for(Position pos : tiles) 
+    {
+        if(pos.row > lowest.row)
+        {
+            lowest = pos;
+            lower.empty();
+            lower.push_back(lowest);
+        }
+        if(pos.row == lowest.row)
+        {
+            lower.push_back(pos);
+        }
+
+    }
+
+    return lower;
 }
 
 Position Player::GetHighestPosition()
@@ -106,4 +144,26 @@ Position Player::GetRightMostPosition()
     }
 
     return right;
+}
+
+// Accessors and Mutators
+
+int Player::GetRow()
+{
+    return row;
+}
+
+int Player::GetCol()
+{
+    return col;
+}
+
+void Player::SetRow(int newRow)
+{
+    this->row = newRow;
+}
+
+void Player::SetCol(int newCol)
+{
+    this->col = newCol;
 }

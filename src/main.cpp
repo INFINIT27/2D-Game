@@ -4,12 +4,9 @@
 int main()
 {
 
-    const int screenWidth = 1000;
-    const int screenHeight = 500;
+    Game game = Game(STARTING_ROW, STARTING_COL);
 
-    Game game = Game(43, 4);
-
-    InitWindow(screenWidth, screenHeight, "My first RAYLIB program!");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "My first RAYLIB program!");
     SetTargetFPS(60);
 
     while (!WindowShouldClose())

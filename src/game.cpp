@@ -2,11 +2,21 @@
 
 Game::Game()
 {
+    // Save Current position
+    save = player.GetPlayerTiles();
+    savedRow = player.GetRow();
+    savedCol = player.GetCol();
+    // ---------------------------
     player = Player();
 }
 
 Game::Game(int row, int col)
 {
+    // Save Current position
+    save = player.GetPlayerTiles();
+    savedRow = row;
+    savedCol = col;
+    // ---------------------------
     player = Player(row, col);
 }
 
@@ -102,6 +112,21 @@ void Game::ManageGame()
         Move(0, 1);
         Delay(DELTA);
     }
+
+    if(IsKeyPressed(KEY_S)) // Save current position
+    {
+        save = player.GetPlayerTiles();
+        savedCol = player.GetCol();
+        savedRow = player.GetRow();
+    }
+
+    if(IsKeyPressed(KEY_R)) // Reload on the saved position
+    {
+        player.SetPlayerTiles(save);
+        player.SetCol(savedCol);
+        player.SetRow(savedRow);
+        Update();
+    }
     MoveDown();
 }
 
@@ -131,19 +156,25 @@ bool Game::CheckUpperWallCollision()
 
 bool Game::CheckLowerWallCollision()
 {
-    Position lowest = player.GetLowestPosition();
+    std::vector<Position> lowest = player.GetLowestPositionVector();
+    bool result = false;
 
-    if(lowest.row == ROWS)
+    for(Position pos : lowest)
     {
-        return true;
+        if(pos.row == ROWS)
+        {
+            result = true;
+        }
     }
 
-    if(grid.grid[lowest.row + 1][lowest.col] == MAP_COLOR)
-    {
-        return true;
+    for(Position pos : lowest)
+    {  
+        if(grid.grid[pos.row + 1][pos.col] == MAP_COLOR)
+        {
+            result = true;
+        }
     }
-
-    return false;
+    return result;
 }
 
 bool Game::CheckCollisionWithWalls()

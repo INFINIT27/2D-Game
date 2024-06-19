@@ -5,6 +5,9 @@
 class Game
 {
     private:
+        std::vector<Position> save;
+        int savedRow;
+        int savedCol;
     public:
         Grid grid = Grid();
         Player player;

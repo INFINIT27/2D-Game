@@ -76,7 +76,7 @@ std::vector<Position> Map::Initialize()
     // Wall 7
     for(int i = 27; i < 28; i++) 
     {
-        for(int j = 94; j < COLS; j++)
+        for(int j = 95; j < COLS; j++)
         {
             map.push_back(Position(i, j));
         }
@@ -85,7 +85,70 @@ std::vector<Position> Map::Initialize()
     // Wall 8
     for(int i = 18; i < 19; i++) 
     {
-        for(int j = 94; j < COLS; j++)
+        for(int j = 95; j < COLS; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 9
+    for(int i = 9; i < 10; i++) 
+    {
+        for(int j = 95; j < COLS; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 10
+    for(int i = 7; i < 9; i++) 
+    {
+        for(int j = 70; j < 80; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 11
+    for(int i = 12; i < 14; i++) 
+    {
+        for(int j = 35; j < 55; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 12
+    for(int i = 7; i < 9; i++) 
+    {
+        for(int j = 15; j < 30; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 13
+    for(int i = 10; i < 12; i++) 
+    {
+        for(int j = 2; j < 8; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 14
+    for(int i = 12; i < 25; i++) 
+    {
+        for(int j = 6; j < 8; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 12
+    for(int i = 25; i < 27; i++) 
+    {
+        for(int j = 4; j < 8; j++)
         {
             map.push_back(Position(i, j));
         }

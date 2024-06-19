@@ -20,9 +20,9 @@ std::vector<Position> Map::Initialize()
     }
 
     // Wall 1
-    for(int i = 30; i < 32; i++) 
+    for(int i = 30; i < 32; i++)        // Rows    (aka y direction)
     {
-        for(int j = 30; j < 45; j++)
+        for(int j = 30; j < 45; j++)    // Columns (aka x direction)
         {
             map.push_back(Position(i, j));
         }
@@ -59,6 +59,33 @@ std::vector<Position> Map::Initialize()
     for(int i = 37; i < 43; i++) 
     {
         for(int j = 90; j < 92; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 6
+    for(int i = 37; i < 39; i++) 
+    {
+        for(int j = 10; j < 40; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 7
+    for(int i = 27; i < 28; i++) 
+    {
+        for(int j = 94; j < COLS; j++)
+        {
+            map.push_back(Position(i, j));
+        }
+    }
+
+    // Wall 8
+    for(int i = 18; i < 19; i++) 
+    {
+        for(int j = 94; j < COLS; j++)
         {
             map.push_back(Position(i, j));
         }

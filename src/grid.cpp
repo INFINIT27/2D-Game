@@ -14,7 +14,7 @@ void Grid::Initialize()
     {
         for(int col = 0; col < cols; col++)
         {
-            grid[row][col] = 0;
+            grid[row][col] = BACKGROUND_COLOR;
         }
     }
 
@@ -22,7 +22,7 @@ void Grid::Initialize()
     Map map = Map();
     for(Position pos : map.GetMapLayout())
     {
-        grid[pos.row][pos.col] = 6;
+        grid[pos.row][pos.col] = MAP_COLOR;
     }
 }
 
@@ -34,6 +34,7 @@ void Grid::Draw()
         {
             DrawRectangle(col * length, row * length, length, length, BLACK);
             DrawRectangle(col * length + 1, row * length + 1, length - 1, length - 1, colors[grid[row][col]]);
+            // DrawRectangle(col * length, row * length, length, length, colors[grid[row][col]]);
         }
     }
 }

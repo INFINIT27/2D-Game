@@ -20,7 +20,6 @@ int main()
         game.Draw();
         game.ManageGame();
         game.Update();
-        // game.PrintPlayer();
 
         EndDrawing();
     }
